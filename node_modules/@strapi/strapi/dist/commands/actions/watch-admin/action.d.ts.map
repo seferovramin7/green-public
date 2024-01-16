@@ -1,0 +1,1 @@
+{"version":3,"file":"action.d.ts","sourceRoot":"","sources":["../../../../src/commands/actions/watch-admin/action.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,UAAU,EAAE,MAAM,aAAa,CAAC;AAEzC,UAAU,iBAAkB,SAAQ,UAAU;IAC5C,OAAO,EAAE,OAAO,CAAC;CAClB;8CAE0C,iBAAiB;AAA5D,wBAME"}

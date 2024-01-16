@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trees",
+  "info": {
+    "singularName": "tree",
+    "pluralName": "trees",
+    "displayName": "tree",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "inserted_date": {
+      "type": "date"
+    },
+    "updated_date": {
+      "type": "date"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "current_location": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "media_asset": {
+      "type": "text"
+    }
+  }
+}

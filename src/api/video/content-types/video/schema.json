@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "videos",
+  "info": {
+    "singularName": "video",
+    "pluralName": "videos",
+    "displayName": "video"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "video_type": {
+      "type": "string"
+    },
+    "video_asset": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "inserted_date": {
+      "type": "date"
+    },
+    "updated_date": {
+      "type": "date"
+    }
+  }
+}
