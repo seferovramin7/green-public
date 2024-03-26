@@ -4,7 +4,7 @@
   "info": {
     "singularName": "specie",
     "pluralName": "species",
-    "displayName": "Specie",
+    "displayName": "Species",
     "description": ""
   },
   "options": {
@@ -32,12 +32,6 @@
     },
     "sized": {
       "type": "decimal"
-    },
-    "suggestion_and_rule": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::suggestion.suggestion",
-      "inversedBy": "species"
     }
   }
 }

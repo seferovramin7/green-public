@@ -768,12 +768,72 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAdviceAdvice extends Schema.CollectionType {
+  collectionName: 'advices';
+  info: {
+    singularName: 'advice';
+    pluralName: 'advices';
+    displayName: 'Advice';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    header: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::advice.advice',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::advice.advice',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductProduct extends Schema.CollectionType {
+  collectionName: 'products';
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'Product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSpecieSpecie extends Schema.CollectionType {
   collectionName: 'species';
   info: {
     singularName: 'specie';
     pluralName: 'species';
-    displayName: 'Specie';
+    displayName: 'Species';
     description: '';
   };
   options: {
@@ -787,11 +847,6 @@ export interface ApiSpecieSpecie extends Schema.CollectionType {
     updated_date: Attribute.Date;
     ever_green: Attribute.Boolean;
     sized: Attribute.Decimal;
-    suggestion_and_rule: Attribute.Relation<
-      'api::specie.specie',
-      'manyToOne',
-      'api::suggestion.suggestion'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -810,38 +865,41 @@ export interface ApiSpecieSpecie extends Schema.CollectionType {
   };
 }
 
-export interface ApiSuggestionSuggestion extends Schema.CollectionType {
-  collectionName: 'suggestions';
+export interface ApiStoreStore extends Schema.CollectionType {
+  collectionName: 'stores';
   info: {
-    singularName: 'suggestion';
-    pluralName: 'suggestions';
-    displayName: 'suggestionAndRule';
+    singularName: 'store';
+    pluralName: 'stores';
+    displayName: 'Store';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    header: Attribute.Text;
+    name: Attribute.String;
+    location: Attribute.Text;
+    cover: Attribute.Media;
+    mainPicture: Attribute.Media;
     description: Attribute.Text;
-    inserted_date: Attribute.Date;
-    updated_date: Attribute.Date;
-    species: Attribute.Relation<
-      'api::suggestion.suggestion',
+    number: Attribute.Text;
+    address: Attribute.String;
+    products: Attribute.Relation<
+      'api::store.store',
       'oneToMany',
-      'api::specie.specie'
+      'api::product.product'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::suggestion.suggestion',
+      'api::store.store',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::suggestion.suggestion',
+      'api::store.store',
       'oneToOne',
       'admin::user'
     > &
@@ -878,33 +936,42 @@ export interface ApiTreeTree extends Schema.CollectionType {
   };
 }
 
-export interface ApiVideoVideo extends Schema.CollectionType {
-  collectionName: 'videos';
+export interface ApiWorkTimeWorkTime extends Schema.CollectionType {
+  collectionName: 'work_times';
   info: {
-    singularName: 'video';
-    pluralName: 'videos';
-    displayName: 'video';
+    singularName: 'work-time';
+    pluralName: 'work-times';
+    displayName: 'workTime';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    video_type: Attribute.String;
-    video_asset: Attribute.Text;
-    description: Attribute.Text;
-    inserted_date: Attribute.Date;
-    updated_date: Attribute.Date;
+    day: Attribute.Enumeration<
+      [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ]
+    >;
+    startHour: Attribute.Time;
+    endHour: Attribute.Time;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::video.video',
+      'api::work-time.work-time',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::video.video',
+      'api::work-time.work-time',
       'oneToOne',
       'admin::user'
     > &
@@ -930,10 +997,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::advice.advice': ApiAdviceAdvice;
+      'api::product.product': ApiProductProduct;
       'api::specie.specie': ApiSpecieSpecie;
-      'api::suggestion.suggestion': ApiSuggestionSuggestion;
+      'api::store.store': ApiStoreStore;
       'api::tree.tree': ApiTreeTree;
-      'api::video.video': ApiVideoVideo;
+      'api::work-time.work-time': ApiWorkTimeWorkTime;
     }
   }
 }
