@@ -768,6 +768,39 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCareProductCareProduct extends Schema.CollectionType {
+  collectionName: 'care_products';
+  info: {
+    singularName: 'care-product';
+    pluralName: 'care-products';
+    displayName: 'careProduct';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    productName: Attribute.String;
+    isInStock: Attribute.Boolean;
+    description: Attribute.Text;
+    price: Attribute.Float;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::care-product.care-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::care-product.care-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSpecieSpecie extends Schema.CollectionType {
   collectionName: 'species';
   info: {
@@ -798,6 +831,41 @@ export interface ApiSpecieSpecie extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::specie.specie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiStoreStore extends Schema.CollectionType {
+  collectionName: 'stores';
+  info: {
+    singularName: 'store';
+    pluralName: 'stores';
+    displayName: 'Store';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    storeName: Attribute.String;
+    phoneNumber: Attribute.String;
+    Address: Attribute.String;
+    storeDescription: Attribute.Text;
+    distance: Attribute.Float;
+    workHours: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::store.store',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::store.store',
       'oneToOne',
       'admin::user'
     > &
@@ -852,7 +920,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::care-product.care-product': ApiCareProductCareProduct;
       'api::specie.specie': ApiSpecieSpecie;
+      'api::store.store': ApiStoreStore;
       'api::tree.tree': ApiTreeTree;
     }
   }
