@@ -768,59 +768,32 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiAdviceAdvice extends Schema.CollectionType {
-  collectionName: 'advices';
+export interface ApiCareProductCareProduct extends Schema.CollectionType {
+  collectionName: 'care_products';
   info: {
-    singularName: 'advice';
-    pluralName: 'advices';
-    displayName: 'Advice';
+    singularName: 'care-product';
+    pluralName: 'care-products';
+    displayName: 'careProduct';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    header: Attribute.String;
+    productName: Attribute.String;
+    isInStock: Attribute.Boolean;
+    description: Attribute.Text;
+    price: Attribute.Float;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::advice.advice',
+      'api::care-product.care-product',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::advice.advice',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiProductProduct extends Schema.CollectionType {
-  collectionName: 'products';
-  info: {
-    singularName: 'product';
-    pluralName: 'products';
-    displayName: 'Product';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::product.product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::product.product',
+      'api::care-product.care-product',
       'oneToOne',
       'admin::user'
     > &
@@ -871,24 +844,17 @@ export interface ApiStoreStore extends Schema.CollectionType {
     singularName: 'store';
     pluralName: 'stores';
     displayName: 'Store';
-    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
-    location: Attribute.Text;
-    cover: Attribute.Media;
-    mainPicture: Attribute.Media;
-    description: Attribute.Text;
-    number: Attribute.Text;
-    address: Attribute.String;
-    products: Attribute.Relation<
-      'api::store.store',
-      'oneToMany',
-      'api::product.product'
-    >;
+    storeName: Attribute.String;
+    phoneNumber: Attribute.String;
+    Address: Attribute.String;
+    storeDescription: Attribute.Text;
+    distance: Attribute.Float;
+    workHours: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -936,49 +902,6 @@ export interface ApiTreeTree extends Schema.CollectionType {
   };
 }
 
-export interface ApiWorkTimeWorkTime extends Schema.CollectionType {
-  collectionName: 'work_times';
-  info: {
-    singularName: 'work-time';
-    pluralName: 'work-times';
-    displayName: 'workTime';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    day: Attribute.Enumeration<
-      [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ]
-    >;
-    startHour: Attribute.Time;
-    endHour: Attribute.Time;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::work-time.work-time',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::work-time.work-time',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -997,12 +920,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::advice.advice': ApiAdviceAdvice;
-      'api::product.product': ApiProductProduct;
+      'api::care-product.care-product': ApiCareProductCareProduct;
       'api::specie.specie': ApiSpecieSpecie;
       'api::store.store': ApiStoreStore;
       'api::tree.tree': ApiTreeTree;
-      'api::work-time.work-time': ApiWorkTimeWorkTime;
     }
   }
 }
