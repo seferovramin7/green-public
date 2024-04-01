@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "care_products",
+  "info": {
+    "singularName": "care-product",
+    "pluralName": "care-products",
+    "displayName": "careProduct"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "productName": {
+      "type": "string"
+    },
+    "isInStock": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "text"
+    },
+    "price": {
+      "type": "float"
+    }
+  }
+}
