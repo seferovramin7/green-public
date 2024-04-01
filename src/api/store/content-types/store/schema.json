@@ -4,13 +4,19 @@
   "info": {
     "singularName": "store",
     "pluralName": "stores",
+<<<<<<< HEAD
     "displayName": "Store"
+=======
+    "displayName": "Store",
+    "description": ""
+>>>>>>> origin/development
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
+<<<<<<< HEAD
     "storeName": {
       "type": "string"
     },
@@ -28,6 +34,49 @@
     },
     "workHours": {
       "type": "text"
+=======
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "text"
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "mainPicture": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "description": {
+      "type": "text"
+    },
+    "number": {
+      "type": "text"
+    },
+    "address": {
+      "type": "string"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+>>>>>>> origin/development
     }
   }
 }
