@@ -4,7 +4,7 @@
   "info": {
     "singularName": "tree",
     "pluralName": "trees",
-    "displayName": "tree",
+    "displayName": "Tree",
     "description": ""
   },
   "options": {
@@ -32,6 +32,59 @@
     },
     "media_asset": {
       "type": "text"
+    },
+    "species": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::specie.specie"
+    },
+    "bestSeasons": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::season.season"
+    },
+    "picture": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "video": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "sellingStores": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::store.store",
+      "mappedBy": "availableTrees"
+    },
+    "watering": {
+      "type": "string"
+    },
+    "depth": {
+      "type": "string"
+    },
+    "spacing": {
+      "type": "string"
+    },
+    "light": {
+      "type": "string"
+    },
+    "soilType": {
+      "type": "string"
     }
   }
 }

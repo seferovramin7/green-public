@@ -4,7 +4,8 @@
   "info": {
     "singularName": "care-product",
     "pluralName": "care-products",
-    "displayName": "careProduct"
+    "displayName": "Product",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -22,6 +23,12 @@
     },
     "price": {
       "type": "float"
+    },
+    "sellingStores": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::store.store",
+      "mappedBy": "availableProducts"
     }
   }
 }

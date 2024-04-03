@@ -4,19 +4,14 @@
   "info": {
     "singularName": "store",
     "pluralName": "stores",
-<<<<<<< HEAD
-    "displayName": "Store"
-=======
     "displayName": "Store",
     "description": ""
->>>>>>> origin/development
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-<<<<<<< HEAD
     "storeName": {
       "type": "string"
     },
@@ -33,50 +28,69 @@
       "type": "float"
     },
     "workHours": {
-      "type": "text"
-=======
-    "name": {
-      "type": "string"
+      "type": "text",
+      "location": {
+        "type": "text"
+      },
+      "cover": {
+        "type": "media",
+        "multiple": false,
+        "required": false,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "mainPicture": {
+        "type": "media",
+        "multiple": false,
+        "required": false,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "description": {
+        "type": "text"
+      },
+      "number": {
+        "type": "text"
+      },
+      "address": {
+        "type": "string"
+      },
+      "products": {
+        "type": "relation",
+        "relation": "oneToMany",
+        "target": "api::product.product"
+      }
     },
-    "location": {
-      "type": "text"
+    "openingAt": {
+      "type": "time"
     },
-    "cover": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+    "closingAt": {
+      "type": "time"
     },
-    "mainPicture": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "description": {
-      "type": "text"
-    },
-    "number": {
-      "type": "text"
-    },
-    "address": {
-      "type": "string"
-    },
-    "products": {
+    "openDays": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::product.product"
->>>>>>> origin/development
+      "target": "api::day-of-week.day-of-week"
+    },
+    "availableTrees": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tree.tree",
+      "inversedBy": "sellingStores"
+    },
+    "availableProducts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::care-product.care-product",
+      "inversedBy": "sellingStores"
     }
   }
 }

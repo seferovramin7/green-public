@@ -768,12 +768,43 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAdviceAdvice extends Schema.CollectionType {
+  collectionName: 'advices';
+  info: {
+    singularName: 'advice';
+    pluralName: 'advices';
+    displayName: 'Advice';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    header: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::advice.advice',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::advice.advice',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCareProductCareProduct extends Schema.CollectionType {
   collectionName: 'care_products';
   info: {
     singularName: 'care-product';
     pluralName: 'care-products';
-    displayName: 'careProduct';
+    displayName: 'Product';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -783,6 +814,11 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
     isInStock: Attribute.Boolean;
     description: Attribute.Text;
     price: Attribute.Float;
+    sellingStores: Attribute.Relation<
+      'api::care-product.care-product',
+      'manyToMany',
+      'api::store.store'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -794,6 +830,76 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::care-product.care-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDayOfWeekDayOfWeek extends Schema.CollectionType {
+  collectionName: 'day_of_weeks';
+  info: {
+    singularName: 'day-of-week';
+    pluralName: 'day-of-weeks';
+    displayName: 'DayOfWeek';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    MON: Attribute.Enumeration<['Monday']>;
+    TUE: Attribute.Enumeration<['Tuesday']>;
+    WED: Attribute.Enumeration<['Wednesday']>;
+    THU: Attribute.Enumeration<['Thursday']>;
+    FRI: Attribute.Enumeration<['Friday']>;
+    SAT: Attribute.Enumeration<['Saturday']>;
+    SUN: Attribute.Enumeration<['Sunday']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::day-of-week.day-of-week',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::day-of-week.day-of-week',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSeasonSeason extends Schema.CollectionType {
+  collectionName: 'seasons';
+  info: {
+    singularName: 'season';
+    pluralName: 'seasons';
+    displayName: 'Season';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    WINTER: Attribute.Enumeration<['winter']>;
+    SPRING: Attribute.Enumeration<['spring']>;
+    SUMMER: Attribute.Enumeration<['summer']>;
+    FALL: Attribute.Enumeration<['fall']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::season.season',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::season.season',
       'oneToOne',
       'admin::user'
     > &
@@ -844,6 +950,7 @@ export interface ApiStoreStore extends Schema.CollectionType {
     singularName: 'store';
     pluralName: 'stores';
     displayName: 'Store';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -855,6 +962,23 @@ export interface ApiStoreStore extends Schema.CollectionType {
     storeDescription: Attribute.Text;
     distance: Attribute.Float;
     workHours: Attribute.Text;
+    openingAt: Attribute.Time;
+    closingAt: Attribute.Time;
+    openDays: Attribute.Relation<
+      'api::store.store',
+      'oneToMany',
+      'api::day-of-week.day-of-week'
+    >;
+    availableTrees: Attribute.Relation<
+      'api::store.store',
+      'manyToMany',
+      'api::tree.tree'
+    >;
+    availableProducts: Attribute.Relation<
+      'api::store.store',
+      'manyToMany',
+      'api::care-product.care-product'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -878,7 +1002,7 @@ export interface ApiTreeTree extends Schema.CollectionType {
   info: {
     singularName: 'tree';
     pluralName: 'trees';
-    displayName: 'tree';
+    displayName: 'Tree';
     description: '';
   };
   options: {
@@ -892,12 +1016,70 @@ export interface ApiTreeTree extends Schema.CollectionType {
     current_location: Attribute.Text;
     description: Attribute.Text;
     media_asset: Attribute.Text;
+    species: Attribute.Relation<
+      'api::tree.tree',
+      'oneToOne',
+      'api::specie.specie'
+    >;
+    bestSeasons: Attribute.Relation<
+      'api::tree.tree',
+      'oneToMany',
+      'api::season.season'
+    >;
+    picture: Attribute.Media;
+    video: Attribute.Media;
+    sellingStores: Attribute.Relation<
+      'api::tree.tree',
+      'manyToMany',
+      'api::store.store'
+    >;
+    watering: Attribute.String;
+    depth: Attribute.String;
+    spacing: Attribute.String;
+    light: Attribute.String;
+    soilType: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::tree.tree', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::tree.tree', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiWeatherWeather extends Schema.SingleType {
+  collectionName: 'weathers';
+  info: {
+    singularName: 'weather';
+    pluralName: 'weathers';
+    displayName: 'Weather';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    greeting: Attribute.Text;
+    location: Attribute.String;
+    localDate: Attribute.DateTime;
+    temperature: Attribute.Integer;
+    weatherCondition: Attribute.String;
+    chanceOfRain: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::weather.weather',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::weather.weather',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -920,10 +1102,14 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::advice.advice': ApiAdviceAdvice;
       'api::care-product.care-product': ApiCareProductCareProduct;
+      'api::day-of-week.day-of-week': ApiDayOfWeekDayOfWeek;
+      'api::season.season': ApiSeasonSeason;
       'api::specie.specie': ApiSpecieSpecie;
       'api::store.store': ApiStoreStore;
       'api::tree.tree': ApiTreeTree;
+      'api::weather.weather': ApiWeatherWeather;
     }
   }
 }
