@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "day_of_weeks",
+  "info": {
+    "singularName": "day-of-week",
+    "pluralName": "day-of-weeks",
+    "displayName": "DayOfWeek",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "MON": {
+      "type": "enumeration",
+      "enum": [
+        "Monday"
+      ]
+    },
+    "TUE": {
+      "type": "enumeration",
+      "enum": [
+        "Tuesday"
+      ]
+    },
+    "WED": {
+      "type": "enumeration",
+      "enum": [
+        "Wednesday"
+      ]
+    },
+    "THU": {
+      "type": "enumeration",
+      "enum": [
+        "Thursday"
+      ]
+    },
+    "FRI": {
+      "type": "enumeration",
+      "enum": [
+        "Friday"
+      ]
+    },
+    "SAT": {
+      "type": "enumeration",
+      "enum": [
+        "Saturday"
+      ]
+    },
+    "SUN": {
+      "type": "enumeration",
+      "enum": [
+        "Sunday"
+      ]
+    }
+  }
+}

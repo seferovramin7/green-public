@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "seasons",
+  "info": {
+    "singularName": "season",
+    "pluralName": "seasons",
+    "displayName": "Season"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "WINTER": {
+      "type": "enumeration",
+      "enum": [
+        "winter"
+      ]
+    },
+    "SPRING": {
+      "type": "enumeration",
+      "enum": [
+        "spring"
+      ]
+    },
+    "SUMMER": {
+      "type": "enumeration",
+      "enum": [
+        "summer"
+      ]
+    },
+    "FALL": {
+      "type": "enumeration",
+      "enum": [
+        "fall"
+      ]
+    }
+  }
+}
