@@ -12,8 +12,7 @@ module.exports = createCoreController('api::weather.weather', ({strapi}) => ({
 
     const {geoLoc} = ctx.query;
     const weatherData = await fetchWeatherData(geoLoc);
-    const weather = await strapi.db.query('api::weather.weather').findOne().json();
-    // return weather;
+    const weather = await strapi.db.query('api::weather.weather').findOne();
     return {weather : weather, weatherData : weatherData};
   }
 }));
