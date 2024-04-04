@@ -14,21 +14,6 @@
   "attributes": {
     "greeting": {
       "type": "text"
-    },
-    "location": {
-      "type": "string"
-    },
-    "localDate": {
-      "type": "datetime"
-    },
-    "temperature": {
-      "type": "integer"
-    },
-    "weatherCondition": {
-      "type": "string"
-    },
-    "chanceOfRain": {
-      "type": "integer"
     }
   }
 }

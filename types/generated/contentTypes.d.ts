@@ -1015,7 +1015,6 @@ export interface ApiTreeTree extends Schema.CollectionType {
     price: Attribute.Decimal;
     current_location: Attribute.Text;
     description: Attribute.Text;
-    media_asset: Attribute.Text;
     species: Attribute.Relation<
       'api::tree.tree',
       'oneToOne',
@@ -1038,6 +1037,7 @@ export interface ApiTreeTree extends Schema.CollectionType {
     spacing: Attribute.String;
     light: Attribute.String;
     soilType: Attribute.String;
+    plantingProcess: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1061,11 +1061,6 @@ export interface ApiWeatherWeather extends Schema.SingleType {
   };
   attributes: {
     greeting: Attribute.Text;
-    location: Attribute.String;
-    localDate: Attribute.DateTime;
-    temperature: Attribute.Integer;
-    weatherCondition: Attribute.String;
-    chanceOfRain: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

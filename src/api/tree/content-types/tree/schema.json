@@ -30,9 +30,6 @@
     "description": {
       "type": "text"
     },
-    "media_asset": {
-      "type": "text"
-    },
     "species": {
       "type": "relation",
       "relation": "oneToOne",
@@ -85,6 +82,9 @@
     },
     "soilType": {
       "type": "string"
+    },
+    "plantingProcess": {
+      "type": "text"
     }
   }
 }
