@@ -809,11 +809,36 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    productName: Attribute.String;
-    isInStock: Attribute.Boolean;
-    description: Attribute.Text;
-    price: Attribute.Float;
+    productName: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    isInStock: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    price: Attribute.Float &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     sellingStores: Attribute.Relation<
       'api::care-product.care-product',
       'manyToMany',
@@ -834,6 +859,12 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::care-product.care-product',
+      'oneToMany',
+      'api::care-product.care-product'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1059,8 +1090,18 @@ export interface ApiWeatherWeather extends Schema.SingleType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    greeting: Attribute.Text;
+    greeting: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1076,6 +1117,12 @@ export interface ApiWeatherWeather extends Schema.SingleType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::weather.weather',
+      'oneToMany',
+      'api::weather.weather'
+    >;
+    locale: Attribute.String;
   };
 }
 
