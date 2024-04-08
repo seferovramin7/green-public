@@ -16,7 +16,7 @@ module.exports = createCoreController('api::weather.weather', ({strapi}) => ({
     const weatherData = await fetchWeatherData(geoLoc, locale);
     const weather = await strapi.db.query('api::weather.weather').findOne({
       where: {
-        locale: "az",
+        locale: locale,
       },
     });
 
