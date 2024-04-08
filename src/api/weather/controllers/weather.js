@@ -11,16 +11,21 @@ module.exports = createCoreController('api::weather.weather', ({strapi}) => ({
   async find(ctx) {
 
     const {geoLoc} = ctx.query;
-    const locale = 'en'//ctx.query;
+    const {locale} = ctx.query;
 
     const weatherData = await fetchWeatherData(geoLoc, locale);
-    const weather = await strapi.db.query('api::weather.weather').findOne();
-    return {weather : weather, weatherData : weatherData};
+    const weather = await strapi.db.query('api::weather.weather').findOne({
+      where: {
+        locale: "az",
+      },
+    });
+
+    return {weather: weather, weatherData: weatherData};
   }
 }));
 
-async function fetchWeatherData(coordinates, lang) {
-  const response = await fetch(`${apiUrl}?q=${coordinates}&lang=${lang}`, {
+async function fetchWeatherData(coordinates, locale) {
+  const response = await fetch(`${apiUrl}?q=${coordinates}&lang=${locale}`, {
     method: "GET",
     headers: {
       "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",

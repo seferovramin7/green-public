@@ -1039,13 +1039,48 @@ export interface ApiTreeTree extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    inserted_date: Attribute.Date;
-    updated_date: Attribute.Date;
-    price: Attribute.Decimal;
-    current_location: Attribute.Text;
-    description: Attribute.Text;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    inserted_date: Attribute.Date &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updated_date: Attribute.Date &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    price: Attribute.Decimal &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    current_location: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     species: Attribute.Relation<
       'api::tree.tree',
       'oneToOne',
@@ -1056,19 +1091,59 @@ export interface ApiTreeTree extends Schema.CollectionType {
       'oneToMany',
       'api::season.season'
     >;
-    picture: Attribute.Media;
-    video: Attribute.Media;
+    picture: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    video: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     sellingStores: Attribute.Relation<
       'api::tree.tree',
       'manyToMany',
       'api::store.store'
     >;
-    watering: Attribute.String;
-    depth: Attribute.String;
-    spacing: Attribute.String;
-    light: Attribute.String;
-    soilType: Attribute.String;
-    plantingProcess: Attribute.Text;
+    watering: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    depth: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    spacing: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    light: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    soilType: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    plantingProcess: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1076,6 +1151,12 @@ export interface ApiTreeTree extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::tree.tree', 'oneToOne', 'admin::user'> &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::tree.tree',
+      'oneToMany',
+      'api::tree.tree'
+    >;
+    locale: Attribute.String;
   };
 }
 
