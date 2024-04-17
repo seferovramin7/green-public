@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "species",
+  "info": {
+    "singularName": "specie",
+    "pluralName": "species",
+    "displayName": "Species",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "long_live": {
+      "type": "boolean"
+    },
+    "climate": {
+      "type": "text"
+    },
+    "inserted_date": {
+      "type": "date"
+    },
+    "updated_date": {
+      "type": "date"
+    },
+    "ever_green": {
+      "type": "boolean"
+    },
+    "sized": {
+      "type": "decimal"
+    }
+  }
+}

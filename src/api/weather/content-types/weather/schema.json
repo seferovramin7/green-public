@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "weathers",
+  "info": {
+    "singularName": "weather",
+    "pluralName": "weathers",
+    "displayName": "Weather",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "greeting": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "care_products",
+  "info": {
+    "singularName": "care-product",
+    "pluralName": "care-products",
+    "displayName": "Product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "productName": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "isInStock": {
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "price": {
+      "type": "float",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "sellingStores": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::store.store",
+      "mappedBy": "availableProducts"
+    }
+  }
+}

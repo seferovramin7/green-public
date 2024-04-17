@@ -1,0 +1,96 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stores",
+  "info": {
+    "singularName": "store",
+    "pluralName": "stores",
+    "displayName": "Store",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "storeName": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "string"
+    },
+    "storeDescription": {
+      "type": "text"
+    },
+    "distance": {
+      "type": "float"
+    },
+    "workHours": {
+      "type": "text",
+      "location": {
+        "type": "text"
+      },
+      "cover": {
+        "type": "media",
+        "multiple": false,
+        "required": false,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "mainPicture": {
+        "type": "media",
+        "multiple": false,
+        "required": false,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "description": {
+        "type": "text"
+      },
+      "number": {
+        "type": "text"
+      },
+      "address": {
+        "type": "string"
+      },
+      "products": {
+        "type": "relation",
+        "relation": "oneToMany",
+        "target": "api::product.product"
+      }
+    },
+    "openingAt": {
+      "type": "time"
+    },
+    "closingAt": {
+      "type": "time"
+    },
+    "openDays": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::day-of-week.day-of-week"
+    },
+    "availableTrees": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tree.tree",
+      "inversedBy": "sellingStores"
+    },
+    "availableProducts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::care-product.care-product",
+      "inversedBy": "sellingStores"
+    }
+  }
+}
