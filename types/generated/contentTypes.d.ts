@@ -868,76 +868,6 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
   };
 }
 
-export interface ApiDayOfWeekDayOfWeek extends Schema.CollectionType {
-  collectionName: 'day_of_weeks';
-  info: {
-    singularName: 'day-of-week';
-    pluralName: 'day-of-weeks';
-    displayName: 'DayOfWeek';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    MON: Attribute.Enumeration<['Monday']>;
-    TUE: Attribute.Enumeration<['Tuesday']>;
-    WED: Attribute.Enumeration<['Wednesday']>;
-    THU: Attribute.Enumeration<['Thursday']>;
-    FRI: Attribute.Enumeration<['Friday']>;
-    SAT: Attribute.Enumeration<['Saturday']>;
-    SUN: Attribute.Enumeration<['Sunday']>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::day-of-week.day-of-week',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::day-of-week.day-of-week',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiSeasonSeason extends Schema.CollectionType {
-  collectionName: 'seasons';
-  info: {
-    singularName: 'season';
-    pluralName: 'seasons';
-    displayName: 'Season';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    WINTER: Attribute.Enumeration<['winter']>;
-    SPRING: Attribute.Enumeration<['spring']>;
-    SUMMER: Attribute.Enumeration<['summer']>;
-    FALL: Attribute.Enumeration<['fall']>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::season.season',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::season.season',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiSpecieSpecie extends Schema.CollectionType {
   collectionName: 'species';
   info: {
@@ -992,14 +922,8 @@ export interface ApiStoreStore extends Schema.CollectionType {
     Address: Attribute.String;
     storeDescription: Attribute.Text;
     distance: Attribute.Float;
-    workHours: Attribute.Text;
     openingAt: Attribute.Time;
     closingAt: Attribute.Time;
-    openDays: Attribute.Relation<
-      'api::store.store',
-      'oneToMany',
-      'api::day-of-week.day-of-week'
-    >;
     availableTrees: Attribute.Relation<
       'api::store.store',
       'manyToMany',
@@ -1010,6 +934,19 @@ export interface ApiStoreStore extends Schema.CollectionType {
       'manyToMany',
       'api::care-product.care-product'
     >;
+    openDays: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+          'Sunday'
+        ]
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1069,12 +1006,6 @@ export interface ApiTreeTree extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    current_location: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     description: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1085,11 +1016,6 @@ export interface ApiTreeTree extends Schema.CollectionType {
       'api::tree.tree',
       'oneToOne',
       'api::specie.specie'
-    >;
-    bestSeasons: Attribute.Relation<
-      'api::tree.tree',
-      'oneToMany',
-      'api::season.season'
     >;
     picture: Attribute.Media &
       Attribute.SetPluginOptions<{
@@ -1139,6 +1065,16 @@ export interface ApiTreeTree extends Schema.CollectionType {
         };
       }>;
     plantingProcess: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    bestSeasons: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        ['Winter', 'Spring', 'Summer', 'Fall']
+      > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1227,8 +1163,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::advice.advice': ApiAdviceAdvice;
       'api::care-product.care-product': ApiCareProductCareProduct;
-      'api::day-of-week.day-of-week': ApiDayOfWeekDayOfWeek;
-      'api::season.season': ApiSeasonSeason;
       'api::specie.specie': ApiSpecieSpecie;
       'api::store.store': ApiStoreStore;
       'api::tree.tree': ApiTreeTree;

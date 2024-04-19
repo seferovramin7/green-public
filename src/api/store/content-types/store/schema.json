@@ -27,58 +27,11 @@
     "distance": {
       "type": "float"
     },
-    "workHours": {
-      "type": "text",
-      "location": {
-        "type": "text"
-      },
-      "cover": {
-        "type": "media",
-        "multiple": false,
-        "required": false,
-        "allowedTypes": [
-          "images",
-          "files",
-          "videos",
-          "audios"
-        ]
-      },
-      "mainPicture": {
-        "type": "media",
-        "multiple": false,
-        "required": false,
-        "allowedTypes": [
-          "images",
-          "files",
-          "videos",
-          "audios"
-        ]
-      },
-      "description": {
-        "type": "text"
-      },
-      "number": {
-        "type": "text"
-      },
-      "address": {
-        "type": "string"
-      },
-      "products": {
-        "type": "relation",
-        "relation": "oneToMany",
-        "target": "api::product.product"
-      }
-    },
     "openingAt": {
       "type": "time"
     },
     "closingAt": {
       "type": "time"
-    },
-    "openDays": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::day-of-week.day-of-week"
     },
     "availableTrees": {
       "type": "relation",
@@ -91,6 +44,19 @@
       "relation": "manyToMany",
       "target": "api::care-product.care-product",
       "inversedBy": "sellingStores"
+    },
+    "openDays": {
+      "type": "customField",
+      "options": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "customField": "plugin::multi-select.multi-select"
     }
   }
 }
