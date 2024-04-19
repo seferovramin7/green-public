@@ -48,14 +48,6 @@
         }
       }
     },
-    "current_location": {
-      "type": "text",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "description": {
       "type": "text",
       "pluginOptions": {
@@ -68,11 +60,6 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::specie.specie"
-    },
-    "bestSeasons": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::season.season"
     },
     "picture": {
       "type": "media",
@@ -159,6 +146,21 @@
           "localized": true
         }
       }
+    },
+    "bestSeasons": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "customField",
+      "options": [
+        "Winter",
+        "Spring",
+        "Summer",
+        "Fall"
+      ],
+      "customField": "plugin::multi-select.multi-select"
     }
   }
 }
