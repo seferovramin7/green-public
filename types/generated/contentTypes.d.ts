@@ -947,6 +947,7 @@ export interface ApiStoreStore extends Schema.CollectionType {
           'Sunday'
         ]
       >;
+    coverPhoto: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
