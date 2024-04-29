@@ -887,6 +887,7 @@ export interface ApiPlantingProcessPlantingProcess
       'oneToMany',
       'api::process-element.process-element'
     >;
+    list: Attribute.Blocks;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
