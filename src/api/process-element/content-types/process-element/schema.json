@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "process_elements",
+  "info": {
+    "singularName": "process-element",
+    "pluralName": "process-elements",
+    "displayName": "processElement"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    }
+  }
+}
