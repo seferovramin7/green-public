@@ -19,6 +19,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::process-element.process-element"
+    },
+    "list": {
+      "type": "blocks"
     }
   }
 }
