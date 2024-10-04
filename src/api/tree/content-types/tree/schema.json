@@ -139,14 +139,6 @@
         }
       }
     },
-    "plantingProcess": {
-      "type": "text",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "bestSeasons": {
       "pluginOptions": {
         "i18n": {
@@ -161,6 +153,11 @@
         "Fall"
       ],
       "customField": "plugin::multi-select.multi-select"
+    },
+    "planting_process": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::planting-process.planting-process"
     }
   }
 }
