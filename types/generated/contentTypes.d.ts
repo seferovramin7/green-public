@@ -403,9 +403,12 @@ export interface PluginUploadFile extends Schema.CollectionType {
     folderPath: Attribute.String &
       Attribute.Required &
       Attribute.Private &
-      Attribute.SetMinMax<{
-        min: 1;
-      }>;
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -441,9 +444,12 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   attributes: {
     name: Attribute.String &
       Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1;
-      }>;
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     pathId: Attribute.Integer & Attribute.Required & Attribute.Unique;
     parent: Attribute.Relation<
       'plugin::upload.folder',
@@ -462,9 +468,12 @@ export interface PluginUploadFolder extends Schema.CollectionType {
     >;
     path: Attribute.String &
       Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1;
-      }>;
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -503,6 +512,12 @@ export interface PluginContentReleasesRelease extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     releasedAt: Attribute.DateTime;
+    scheduledAt: Attribute.DateTime;
+    timezone: Attribute.String;
+    status: Attribute.Enumeration<
+      ['ready', 'blocked', 'failed', 'done', 'empty']
+    > &
+      Attribute.Required;
     actions: Attribute.Relation<
       'plugin::content-releases.release',
       'oneToMany',
@@ -551,11 +566,13 @@ export interface PluginContentReleasesReleaseAction
       'morphToOne'
     >;
     contentType: Attribute.String & Attribute.Required;
+    locale: Attribute.String;
     release: Attribute.Relation<
       'plugin::content-releases.release-action',
       'manyToOne',
       'plugin::content-releases.release'
     >;
+    isEntryValid: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -595,10 +612,13 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 50;
-      }>;
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
     code: Attribute.String & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -768,6 +788,59 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface PluginStrapiLeafletGeomanConfig extends Schema.SingleType {
+  collectionName: 'strapi_leaflet_geoman_config';
+  info: {
+    singularName: 'config';
+    pluralName: 'configs';
+    displayName: 'Strapi Leaflet Geoman Config';
+  };
+  options: {
+    populateCreatorFields: false;
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    defaultLatitude: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.DefaultTo<42>;
+    defaultLongitude: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.DefaultTo<42>;
+    defaultZoom: Attribute.Integer &
+      Attribute.Required &
+      Attribute.DefaultTo<6>;
+    defaultTileURL: Attribute.String &
+      Attribute.Required &
+      Attribute.DefaultTo<'https://tile.openstreetmap.org/{z}/{x}/{y}.png'>;
+    defaultTileAttribution: Attribute.String &
+      Attribute.Required &
+      Attribute.DefaultTo<"Map data \u00A9 <a href='https://www.openstreetmap.org'>OpenStreetMap</a> contributors">;
+    defaultTileAccessToken: Attribute.String & Attribute.DefaultTo<''>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::strapi-leaflet-geoman.config',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::strapi-leaflet-geoman.config',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiAdviceAdvice extends Schema.CollectionType {
   collectionName: 'advices';
   info: {
@@ -868,67 +941,31 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
   };
 }
 
-export interface ApiPlantingProcessPlantingProcess
-  extends Schema.CollectionType {
-  collectionName: 'planting_processes';
+export interface ApiMmkPolygonMmkPolygon extends Schema.CollectionType {
+  collectionName: 'mmk_polygons';
   info: {
-    singularName: 'planting-process';
-    pluralName: 'planting-processes';
-    displayName: 'PlantingProcess';
+    singularName: 'mmk-polygon';
+    pluralName: 'mmk-polygons';
+    displayName: 'MMKPolygon';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    header: Attribute.String;
-    process_elements: Attribute.Relation<
-      'api::planting-process.planting-process',
-      'oneToMany',
-      'api::process-element.process-element'
-    >;
-    list: Attribute.Blocks;
+    polygon: Attribute.JSON;
+    Name: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::planting-process.planting-process',
+      'api::mmk-polygon.mmk-polygon',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::planting-process.planting-process',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiProcessElementProcessElement extends Schema.CollectionType {
-  collectionName: 'process_elements';
-  info: {
-    singularName: 'process-element';
-    pluralName: 'process-elements';
-    displayName: 'processElement';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    text: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::process-element.process-element',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::process-element.process-element',
+      'api::mmk-polygon.mmk-polygon',
       'oneToOne',
       'admin::user'
     > &
@@ -1015,7 +1052,7 @@ export interface ApiStoreStore extends Schema.CollectionType {
           'Sunday'
         ]
       >;
-    coverPhoto: Attribute.Media;
+    coverPhoto: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1086,13 +1123,13 @@ export interface ApiTreeTree extends Schema.CollectionType {
       'oneToOne',
       'api::specie.specie'
     >;
-    picture: Attribute.Media &
+    picture: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    video: Attribute.Media &
+    video: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1133,6 +1170,12 @@ export interface ApiTreeTree extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    plantingProcess: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     bestSeasons: Attribute.JSON &
       Attribute.CustomField<
         'plugin::multi-select.multi-select',
@@ -1143,11 +1186,6 @@ export interface ApiTreeTree extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    planting_process: Attribute.Relation<
-      'api::tree.tree',
-      'oneToOne',
-      'api::planting-process.planting-process'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1229,10 +1267,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'plugin::strapi-leaflet-geoman.config': PluginStrapiLeafletGeomanConfig;
       'api::advice.advice': ApiAdviceAdvice;
       'api::care-product.care-product': ApiCareProductCareProduct;
-      'api::planting-process.planting-process': ApiPlantingProcessPlantingProcess;
-      'api::process-element.process-element': ApiProcessElementProcessElement;
+      'api::mmk-polygon.mmk-polygon': ApiMmkPolygonMmkPolygon;
       'api::specie.specie': ApiSpecieSpecie;
       'api::store.store': ApiStoreStore;
       'api::tree.tree': ApiTreeTree;
