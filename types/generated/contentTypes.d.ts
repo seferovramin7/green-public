@@ -973,6 +973,74 @@ export interface ApiMmkPolygonMmkPolygon extends Schema.CollectionType {
   };
 }
 
+export interface ApiPlantingProcessPlantingProcess
+  extends Schema.CollectionType {
+  collectionName: 'planting_processes';
+  info: {
+    singularName: 'planting-process';
+    pluralName: 'planting-processes';
+    displayName: 'PlantingProcess';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    header: Attribute.String;
+    process_elements: Attribute.Relation<
+      'api::planting-process.planting-process',
+      'oneToMany',
+      'api::process-element.process-element'
+    >;
+    list: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::planting-process.planting-process',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::planting-process.planting-process',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProcessElementProcessElement extends Schema.CollectionType {
+  collectionName: 'process_elements';
+  info: {
+    singularName: 'process-element';
+    pluralName: 'process-elements';
+    displayName: 'processElement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    text: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::process-element.process-element',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::process-element.process-element',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSpecieSpecie extends Schema.CollectionType {
   collectionName: 'species';
   info: {
@@ -1170,12 +1238,6 @@ export interface ApiTreeTree extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    plantingProcess: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     bestSeasons: Attribute.JSON &
       Attribute.CustomField<
         'plugin::multi-select.multi-select',
@@ -1186,6 +1248,11 @@ export interface ApiTreeTree extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    planting_process: Attribute.Relation<
+      'api::tree.tree',
+      'oneToOne',
+      'api::planting-process.planting-process'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1271,6 +1338,8 @@ declare module '@strapi/types' {
       'api::advice.advice': ApiAdviceAdvice;
       'api::care-product.care-product': ApiCareProductCareProduct;
       'api::mmk-polygon.mmk-polygon': ApiMmkPolygonMmkPolygon;
+      'api::planting-process.planting-process': ApiPlantingProcessPlantingProcess;
+      'api::process-element.process-element': ApiProcessElementProcessElement;
       'api::specie.specie': ApiSpecieSpecie;
       'api::store.store': ApiStoreStore;
       'api::tree.tree': ApiTreeTree;
