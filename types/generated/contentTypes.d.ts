@@ -973,6 +973,38 @@ export interface ApiMmkPolygonMmkPolygon extends Schema.CollectionType {
   };
 }
 
+export interface ApiPlacemarkPlacemark extends Schema.CollectionType {
+  collectionName: 'placemarks';
+  info: {
+    singularName: 'placemark';
+    pluralName: 'placemarks';
+    displayName: 'Placemark';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Name: Attribute.String;
+    latitude: Attribute.Float;
+    longitude: Attribute.Float;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::placemark.placemark',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::placemark.placemark',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPlantingProcessPlantingProcess
   extends Schema.CollectionType {
   collectionName: 'planting_processes';
@@ -1338,6 +1370,7 @@ declare module '@strapi/types' {
       'api::advice.advice': ApiAdviceAdvice;
       'api::care-product.care-product': ApiCareProductCareProduct;
       'api::mmk-polygon.mmk-polygon': ApiMmkPolygonMmkPolygon;
+      'api::placemark.placemark': ApiPlacemarkPlacemark;
       'api::planting-process.planting-process': ApiPlantingProcessPlantingProcess;
       'api::process-element.process-element': ApiProcessElementProcessElement;
       'api::specie.specie': ApiSpecieSpecie;
