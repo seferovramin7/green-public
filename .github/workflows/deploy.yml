@@ -1,4 +1,4 @@
-name: Deploy Strapi to Contabo
+name: Deploy to Contabo Server
 
 on:
   push:
@@ -21,19 +21,21 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'  # Or the version you need for your project
+          node-version: '16'  # Or whichever version of Node.js is required by your project
 
-      - name: Install dependencies
-        run: npm install
+      - name: Clean and install dependencies
+        run: |
+          rm -rf node_modules
+          npm ci  # This ensures a clean install from package-lock.json
 
-      - name: Build Strapi
+      - name: Build Strapi project
         run: npm run build
 
-      - name: Deploy to Contabo Server
+      - name: Deploy to server
         run: |
           ssh root@37.60.230.124 "
           cd /var/www/green-public &&
           git pull origin main &&
-          npm install &&
+          npm ci &&
           npm run build &&
-          pm2 restart strapi"
+          pm2 restart strapi"  # Update to use your PM2 process name: strapi
