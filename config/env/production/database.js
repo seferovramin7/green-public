@@ -1,5 +1,7 @@
 const path = require('path');
 
+// Hello Test
+
 module.exports = ({ env }) => ({
   defaultConnection: 'default',
   connections: {
