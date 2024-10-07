@@ -18,15 +18,17 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Add Contabo server to known_hosts
+        run: |
+          ssh-keyscan 37.60.230.124 >> ~/.ssh/known_hosts
+
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Or whichever version of Node.js is required by your project
+          node-version: '16'  # Or the version you need for your project
 
-      - name: Clean and install dependencies
-        run: |
-          rm -rf node_modules
-          npm ci  # This ensures a clean install from package-lock.json
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build Strapi project
         run: npm run build
@@ -38,4 +40,4 @@ jobs:
           git pull origin main &&
           npm ci &&
           npm run build &&
-          pm2 restart strapi"  # Update to use your PM2 process name: strapi
+          pm2 restart strapi"
