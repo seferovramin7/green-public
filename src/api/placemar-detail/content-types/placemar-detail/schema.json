@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "placemar_details",
+  "info": {
+    "singularName": "placemar-detail",
+    "pluralName": "placemar-details",
+    "displayName": "PlacemarkDetail",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "address": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "workHours": {
+      "type": "text"
+    }
+  }
+}
