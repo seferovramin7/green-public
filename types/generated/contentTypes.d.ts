@@ -973,12 +973,46 @@ export interface ApiMmkPolygonMmkPolygon extends Schema.CollectionType {
   };
 }
 
+export interface ApiPlacemarDetailPlacemarDetail extends Schema.CollectionType {
+  collectionName: 'placemar_details';
+  info: {
+    singularName: 'placemar-detail';
+    pluralName: 'placemar-details';
+    displayName: 'PlacemarkDetail';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Attribute.Text;
+    description: Attribute.Text;
+    workHours: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::placemar-detail.placemar-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::placemar-detail.placemar-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPlacemarkPlacemark extends Schema.CollectionType {
   collectionName: 'placemarks';
   info: {
     singularName: 'placemark';
     pluralName: 'placemarks';
     displayName: 'Placemark';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -987,6 +1021,11 @@ export interface ApiPlacemarkPlacemark extends Schema.CollectionType {
     Name: Attribute.String;
     latitude: Attribute.Float;
     longitude: Attribute.Float;
+    placemark_detail: Attribute.Relation<
+      'api::placemark.placemark',
+      'oneToOne',
+      'api::placemar-detail.placemar-detail'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1370,6 +1409,7 @@ declare module '@strapi/types' {
       'api::advice.advice': ApiAdviceAdvice;
       'api::care-product.care-product': ApiCareProductCareProduct;
       'api::mmk-polygon.mmk-polygon': ApiMmkPolygonMmkPolygon;
+      'api::placemar-detail.placemar-detail': ApiPlacemarDetailPlacemarDetail;
       'api::placemark.placemark': ApiPlacemarkPlacemark;
       'api::planting-process.planting-process': ApiPlantingProcessPlantingProcess;
       'api::process-element.process-element': ApiProcessElementProcessElement;

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "placemark",
     "pluralName": "placemarks",
-    "displayName": "Placemark"
+    "displayName": "Placemark",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +20,11 @@
     },
     "longitude": {
       "type": "float"
+    },
+    "placemark_detail": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::placemar-detail.placemar-detail"
     }
   }
 }
