@@ -48,11 +48,10 @@
         }
       }
     },
-    "sellingStores": {
+    "store": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::store.store",
-      "mappedBy": "availableProducts"
+      "relation": "oneToOne",
+      "target": "api::store.store"
     }
   }
 }

@@ -24,26 +24,11 @@
     "storeDescription": {
       "type": "text"
     },
-    "distance": {
-      "type": "float"
-    },
     "openingAt": {
       "type": "time"
     },
     "closingAt": {
       "type": "time"
-    },
-    "availableTrees": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tree.tree",
-      "inversedBy": "sellingStores"
-    },
-    "availableProducts": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::care-product.care-product",
-      "inversedBy": "sellingStores"
     },
     "openDays": {
       "type": "customField",
@@ -59,6 +44,23 @@
       "customField": "plugin::multi-select.multi-select"
     },
     "coverPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
+    },
+    "profilePhoto": {
       "allowedTypes": [
         "images",
         "files",
