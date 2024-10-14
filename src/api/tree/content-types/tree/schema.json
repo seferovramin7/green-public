@@ -93,12 +93,6 @@
         }
       }
     },
-    "sellingStores": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::store.store",
-      "mappedBy": "availableTrees"
-    },
     "watering": {
       "type": "string",
       "pluginOptions": {
@@ -158,6 +152,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::planting-process.planting-process"
+    },
+    "store": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::store.store"
     }
   }
 }

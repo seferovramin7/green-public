@@ -912,9 +912,9 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    sellingStores: Attribute.Relation<
+    store: Attribute.Relation<
       'api::care-product.care-product',
-      'manyToMany',
+      'oneToOne',
       'api::store.store'
     >;
     createdAt: Attribute.DateTime;
@@ -1165,19 +1165,8 @@ export interface ApiStoreStore extends Schema.CollectionType {
     phoneNumber: Attribute.String;
     Address: Attribute.String;
     storeDescription: Attribute.Text;
-    distance: Attribute.Float;
     openingAt: Attribute.Time;
     closingAt: Attribute.Time;
-    availableTrees: Attribute.Relation<
-      'api::store.store',
-      'manyToMany',
-      'api::tree.tree'
-    >;
-    availableProducts: Attribute.Relation<
-      'api::store.store',
-      'manyToMany',
-      'api::care-product.care-product'
-    >;
     openDays: Attribute.JSON &
       Attribute.CustomField<
         'plugin::multi-select.multi-select',
@@ -1192,6 +1181,9 @@ export interface ApiStoreStore extends Schema.CollectionType {
         ]
       >;
     coverPhoto: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    latitude: Attribute.Float;
+    longitude: Attribute.Float;
+    profilePhoto: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1274,11 +1266,6 @@ export interface ApiTreeTree extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    sellingStores: Attribute.Relation<
-      'api::tree.tree',
-      'manyToMany',
-      'api::store.store'
-    >;
     watering: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1324,6 +1311,7 @@ export interface ApiTreeTree extends Schema.CollectionType {
       'oneToOne',
       'api::planting-process.planting-process'
     >;
+    store: Attribute.Relation<'api::tree.tree', 'oneToOne', 'api::store.store'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
