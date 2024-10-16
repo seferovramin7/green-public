@@ -1306,12 +1306,13 @@ export interface ApiTreeTree extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    planting_process: Attribute.Relation<
-      'api::tree.tree',
-      'oneToOne',
-      'api::planting-process.planting-process'
-    >;
     store: Attribute.Relation<'api::tree.tree', 'oneToOne', 'api::store.store'>;
+    planting_process: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
