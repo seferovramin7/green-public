@@ -148,15 +148,18 @@
       ],
       "customField": "plugin::multi-select.multi-select"
     },
-    "planting_process": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::planting-process.planting-process"
-    },
     "store": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::store.store"
+    },
+    "planting_process": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
     }
   }
 }
