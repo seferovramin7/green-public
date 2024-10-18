@@ -6,4 +6,17 @@
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::weather.weather');
+module.exports = {
+  routes: [
+    {
+      method: 'GET',
+      path: '/weather/findByCoordinates',
+      handler: 'weather.findByCoordinates',
+      config: {
+        auth: false,
+        policies: [],
+        middlewares: [],
+      },
+    },
+  ],
+};

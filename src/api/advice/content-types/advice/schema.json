@@ -4,7 +4,8 @@
   "info": {
     "singularName": "advice",
     "pluralName": "advices",
-    "displayName": "Advice"
+    "displayName": "Advice",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,6 +14,9 @@
   "attributes": {
     "header": {
       "type": "string"
+    },
+    "greeting": {
+      "type": "text"
     }
   }
 }
