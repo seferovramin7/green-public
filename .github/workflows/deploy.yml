@@ -28,7 +28,7 @@ jobs:
           node-version: '16'  # Or the version you need for your project
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install  # Use npm install instead of npm ci
 
       - name: Build Strapi project
         run: npm run build
@@ -38,6 +38,6 @@ jobs:
           ssh root@37.60.230.124 "
           cd /var/www/green-public &&
           git pull origin main &&
-          npm ci &&
+          npm install &&  # Ensure npm install is used here too
           npm run build &&
           pm2 restart strapi"
