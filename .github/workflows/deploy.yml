@@ -25,10 +25,16 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Or the version you need for your project
+          node-version: '16'  # Specify the Node.js version you need
+
+      # Remove node_modules and package-lock.json to ensure a clean install
+      - name: Clean npm modules
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
 
       - name: Install dependencies
-        run: npm install  # Use npm install instead of npm ci
+        run: npm install  # Reinstall dependencies
 
       - name: Build Strapi project
         run: npm run build
@@ -38,6 +44,6 @@ jobs:
           ssh root@37.60.230.124 "
           cd /var/www/green-public &&
           git pull origin main &&
-          npm install &&  # Ensure npm install is used here too
+          npm install &&
           npm run build &&
           pm2 restart strapi"
