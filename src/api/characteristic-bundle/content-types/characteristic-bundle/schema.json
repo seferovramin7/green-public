@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "characteristic_bundles",
+  "info": {
+    "singularName": "characteristic-bundle",
+    "pluralName": "characteristic-bundles",
+    "displayName": "CharacteristicBundle"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "characteristics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::characteristic.characteristic"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

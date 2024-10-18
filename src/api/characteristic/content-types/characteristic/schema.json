@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "characteristics",
+  "info": {
+    "singularName": "characteristic",
+    "pluralName": "characteristics",
+    "displayName": "characteristic",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  }
+}
