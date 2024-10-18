@@ -943,6 +943,74 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
   };
 }
 
+export interface ApiCharacteristicCharacteristic extends Schema.CollectionType {
+  collectionName: 'characteristics';
+  info: {
+    singularName: 'characteristic';
+    pluralName: 'characteristics';
+    displayName: 'characteristic';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    value: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::characteristic.characteristic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::characteristic.characteristic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCharacteristicBundleCharacteristicBundle
+  extends Schema.CollectionType {
+  collectionName: 'characteristic_bundles';
+  info: {
+    singularName: 'characteristic-bundle';
+    pluralName: 'characteristic-bundles';
+    displayName: 'CharacteristicBundle';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    characteristics: Attribute.Relation<
+      'api::characteristic-bundle.characteristic-bundle',
+      'oneToMany',
+      'api::characteristic.characteristic'
+    >;
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::characteristic-bundle.characteristic-bundle',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::characteristic-bundle.characteristic-bundle',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMmkPolygonMmkPolygon extends Schema.CollectionType {
   collectionName: 'mmk_polygons';
   info: {
@@ -1065,7 +1133,6 @@ export interface ApiPlantingProcessPlantingProcess
       'oneToMany',
       'api::process-element.process-element'
     >;
-    list: Attribute.Blocks;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1090,6 +1157,7 @@ export interface ApiProcessElementProcessElement extends Schema.CollectionType {
     singularName: 'process-element';
     pluralName: 'process-elements';
     displayName: 'processElement';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1268,36 +1336,6 @@ export interface ApiTreeTree extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    watering: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    depth: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    spacing: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    light: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    soilType: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     bestSeasons: Attribute.JSON &
       Attribute.CustomField<
         'plugin::multi-select.multi-select',
@@ -1309,12 +1347,16 @@ export interface ApiTreeTree extends Schema.CollectionType {
         };
       }>;
     store: Attribute.Relation<'api::tree.tree', 'oneToOne', 'api::store.store'>;
-    planting_process: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    characteristic_bundle: Attribute.Relation<
+      'api::tree.tree',
+      'oneToOne',
+      'api::characteristic-bundle.characteristic-bundle'
+    >;
+    planting_process: Attribute.Relation<
+      'api::tree.tree',
+      'oneToOne',
+      'api::planting-process.planting-process'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1405,6 +1447,8 @@ declare module '@strapi/types' {
       'plugin::strapi-leaflet-geoman.config': PluginStrapiLeafletGeomanConfig;
       'api::advice.advice': ApiAdviceAdvice;
       'api::care-product.care-product': ApiCareProductCareProduct;
+      'api::characteristic.characteristic': ApiCharacteristicCharacteristic;
+      'api::characteristic-bundle.characteristic-bundle': ApiCharacteristicBundleCharacteristicBundle;
       'api::mmk-polygon.mmk-polygon': ApiMmkPolygonMmkPolygon;
       'api::placemar-detail.placemar-detail': ApiPlacemarDetailPlacemarDetail;
       'api::placemark.placemark': ApiPlacemarkPlacemark;
