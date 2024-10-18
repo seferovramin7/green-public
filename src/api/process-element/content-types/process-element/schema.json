@@ -4,7 +4,8 @@
   "info": {
     "singularName": "process-element",
     "pluralName": "process-elements",
-    "displayName": "processElement"
+    "displayName": "processElement",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

@@ -93,46 +93,6 @@
         }
       }
     },
-    "watering": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "depth": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "spacing": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "light": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "soilType": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "bestSeasons": {
       "pluginOptions": {
         "i18n": {
@@ -153,13 +113,15 @@
       "relation": "oneToOne",
       "target": "api::store.store"
     },
+    "characteristic_bundle": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::characteristic-bundle.characteristic-bundle"
+    },
     "planting_process": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "text"
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::planting-process.planting-process"
     }
   }
 }
