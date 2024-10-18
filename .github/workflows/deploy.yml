@@ -27,14 +27,19 @@ jobs:
         with:
           node-version: '16'  # Specify the Node.js version you need
 
+      # Clean npm cache before installing
+      - name: Clean npm cache
+        run: npm cache clean --force
+
       # Remove node_modules and package-lock.json to ensure a clean install
       - name: Clean npm modules
         run: |
           rm -rf node_modules
           rm -f package-lock.json
 
+      # Install dependencies
       - name: Install dependencies
-        run: npm install  # Reinstall dependencies
+        run: npm install
 
       - name: Build Strapi project
         run: npm run build
