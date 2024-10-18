@@ -847,12 +847,14 @@ export interface ApiAdviceAdvice extends Schema.CollectionType {
     singularName: 'advice';
     pluralName: 'advices';
     displayName: 'Advice';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     header: Attribute.String;
+    greeting: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1347,6 +1349,12 @@ export interface ApiWeatherWeather extends Schema.SingleType {
   };
   attributes: {
     greeting: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    greetingDescription: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
