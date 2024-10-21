@@ -908,12 +908,6 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    price: Attribute.Float &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     store: Attribute.Relation<
       'api::care-product.care-product',
       'oneToOne',
@@ -926,6 +920,12 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
         };
       }>;
     image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    price: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
