@@ -69,6 +69,18 @@
       ],
       "type": "media",
       "multiple": false
+    },
+    "trees": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tree.tree",
+      "mappedBy": "store"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::care-product.care-product",
+      "mappedBy": "store"
     }
   }
 }
