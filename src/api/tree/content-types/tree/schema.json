@@ -110,8 +110,9 @@
     },
     "store": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::store.store"
+      "relation": "manyToOne",
+      "target": "api::store.store",
+      "inversedBy": "trees"
     },
     "characteristic_bundle": {
       "type": "relation",

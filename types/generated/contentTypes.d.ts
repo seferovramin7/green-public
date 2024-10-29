@@ -771,6 +771,13 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    customer_profile: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::customer-profile.customer-profile'
+    >;
+    userType: Attribute.Enumeration<['Customer', 'Company', 'NGO']> &
+      Attribute.DefaultTo<'Customer'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -910,7 +917,7 @@ export interface ApiCareProductCareProduct extends Schema.CollectionType {
       }>;
     store: Attribute.Relation<
       'api::care-product.care-product',
-      'oneToOne',
+      'manyToOne',
       'api::store.store'
     >;
     about: Attribute.Text &
@@ -1016,6 +1023,47 @@ export interface ApiCharacteristicBundleCharacteristicBundle
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::characteristic-bundle.characteristic-bundle',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCustomerProfileCustomerProfile
+  extends Schema.CollectionType {
+  collectionName: 'customer_profiles';
+  info: {
+    singularName: 'customer-profile';
+    pluralName: 'customer-profiles';
+    displayName: 'CustomerProfile';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    surname: Attribute.String;
+    email: Attribute.Email;
+    phoneNumber: Attribute.BigInteger;
+    password: Attribute.Password;
+    users_permissions_user: Attribute.Relation<
+      'api::customer-profile.customer-profile',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::customer-profile.customer-profile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::customer-profile.customer-profile',
       'oneToOne',
       'admin::user'
     > &
@@ -1266,6 +1314,16 @@ export interface ApiStoreStore extends Schema.CollectionType {
     latitude: Attribute.Float;
     longitude: Attribute.Float;
     profilePhoto: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    trees: Attribute.Relation<
+      'api::store.store',
+      'oneToMany',
+      'api::tree.tree'
+    >;
+    products: Attribute.Relation<
+      'api::store.store',
+      'oneToMany',
+      'api::care-product.care-product'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1358,7 +1416,11 @@ export interface ApiTreeTree extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    store: Attribute.Relation<'api::tree.tree', 'oneToOne', 'api::store.store'>;
+    store: Attribute.Relation<
+      'api::tree.tree',
+      'manyToOne',
+      'api::store.store'
+    >;
     characteristic_bundle: Attribute.Relation<
       'api::tree.tree',
       'oneToOne',
@@ -1461,6 +1523,7 @@ declare module '@strapi/types' {
       'api::care-product.care-product': ApiCareProductCareProduct;
       'api::characteristic.characteristic': ApiCharacteristicCharacteristic;
       'api::characteristic-bundle.characteristic-bundle': ApiCharacteristicBundleCharacteristicBundle;
+      'api::customer-profile.customer-profile': ApiCustomerProfileCustomerProfile;
       'api::mmk-polygon.mmk-polygon': ApiMmkPolygonMmkPolygon;
       'api::placemar-detail.placemar-detail': ApiPlacemarDetailPlacemarDetail;
       'api::placemark.placemark': ApiPlacemarkPlacemark;
