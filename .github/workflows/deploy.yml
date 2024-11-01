@@ -37,9 +37,9 @@ jobs:
           rm -rf node_modules
           rm -f package-lock.json
 
-      # Install dependencies
+      # Install dependencies with legacy peer deps
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build Strapi project
         run: npm run build
@@ -49,6 +49,6 @@ jobs:
           ssh root@37.60.230.124 "
           cd /var/www/green-public &&
           git pull origin main &&
-          npm install &&
+          npm install --legacy-peer-deps &&
           npm run build &&
           pm2 restart strapi"
