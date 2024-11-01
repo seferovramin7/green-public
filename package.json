@@ -10,6 +10,8 @@
     "strapi": "strapi"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "1.9.5",
+    "react-redux": "8.0.5",
     "@strapi/cloud-cli": "^5.2.0",
     "@strapi/design-system": "^1.19.0",
     "@strapi/icons": "^1.19.0",
