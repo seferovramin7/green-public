@@ -1,4 +1,4 @@
-import { translatedErrors } from '@strapi/helper-plugin';
+import { translatedErrors } from '@strapi/strapi/admin';
 import * as yup from 'yup';
 
 import { getTrad } from '../../../utils';
@@ -34,6 +34,9 @@ const secretLabel = {
   defaultMessage: 'Client Secret',
 };
 
+const CALLBACK_REGEX = /^$|^[a-z][a-z0-9+.-]*:\/\/[^\s/$.?#](?:[^\s]*[^\s/$.?#])?$/i;
+const SUBDOMAIN_REGEX = /^(([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+)(:\d+)?(\/\S*)?$/i;
+
 const forms = {
   email: {
     form: [
@@ -52,7 +55,7 @@ const forms = {
       ],
     ],
     schema: yup.object().shape({
-      enabled: yup.bool().required(translatedErrors.required),
+      enabled: yup.bool().required(translatedErrors.required.id),
     }),
   },
   providers: {
@@ -117,20 +120,23 @@ const forms = {
       ],
     ],
     schema: yup.object().shape({
-      enabled: yup.bool().required(translatedErrors.required),
+      enabled: yup.bool().required(translatedErrors.required.id),
       key: yup.string().when('enabled', {
         is: true,
-        then: yup.string().required(translatedErrors.required),
+        then: yup.string().required(translatedErrors.required.id),
         otherwise: yup.string(),
       }),
       secret: yup.string().when('enabled', {
         is: true,
-        then: yup.string().required(translatedErrors.required),
+        then: yup.string().required(translatedErrors.required.id),
         otherwise: yup.string(),
       }),
       callback: yup.string().when('enabled', {
         is: true,
-        then: yup.string().required(translatedErrors.required),
+        then: yup
+          .string()
+          .matches(CALLBACK_REGEX, translatedErrors.regex.id)
+          .required(translatedErrors.required.id),
         otherwise: yup.string(),
       }),
     }),
@@ -231,25 +237,31 @@ const forms = {
       ],
     ],
     schema: yup.object().shape({
-      enabled: yup.bool().required(translatedErrors.required),
+      enabled: yup.bool().required(translatedErrors.required.id),
       key: yup.string().when('enabled', {
         is: true,
-        then: yup.string().required(translatedErrors.required),
+        then: yup.string().required(translatedErrors.required.id),
         otherwise: yup.string(),
       }),
       secret: yup.string().when('enabled', {
         is: true,
-        then: yup.string().required(translatedErrors.required),
+        then: yup.string().required(translatedErrors.required.id),
         otherwise: yup.string(),
       }),
       subdomain: yup.string().when('enabled', {
         is: true,
-        then: yup.string().required(translatedErrors.required),
+        then: yup
+          .string()
+          .matches(SUBDOMAIN_REGEX, translatedErrors.regex.id)
+          .required(translatedErrors.required.id),
         otherwise: yup.string(),
       }),
       callback: yup.string().when('enabled', {
         is: true,
-        then: yup.string().required(translatedErrors.required),
+        then: yup
+          .string()
+          .matches(CALLBACK_REGEX, translatedErrors.regex.id)
+          .required(translatedErrors.required.id),
         otherwise: yup.string(),
       }),
     }),

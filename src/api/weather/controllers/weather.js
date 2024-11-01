@@ -33,7 +33,7 @@ module.exports = createCoreController('api::weather.weather', ({strapi}) => ({
       const liveCondition = weatherData.weather[0].main; // Get the weather condition, e.g., Sunny, Rainy
 
       // Step 3: Find any weather data stored in your Strapi database for the same city
-      const storedWeatherData = await strapi.entityService.findMany('api::weather.weather', {
+      const storedWeatherData = await strapi.documents('api::weather.weather').findMany({
         fields: ['greeting', 'greetingDescription'], // Specify the fields you want to retrieve
       });
 

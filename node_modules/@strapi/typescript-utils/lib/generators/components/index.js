@@ -1,9 +1,15 @@
 'use strict';
 
 const { factory } = require('typescript');
+const { pipe, values, sortBy, map } = require('lodash/fp');
 
 const { models } = require('../common');
 const { emitDefinitions, format, generateSharedExtensionDefinition } = require('../utils');
+
+const NO_COMPONENT_PLACEHOLDER_COMMENT = `/*
+ * The app doesn't have any components yet.
+ */
+`;
 
 /**
  * Generate type definitions for Strapi Components
@@ -18,10 +24,20 @@ const generateComponentsDefinitions = async (options = {}) => {
 
   const { components } = strapi;
 
-  const componentsDefinitions = Object.values(components).map((contentType) => ({
-    uid: contentType.uid,
-    definition: models.schema.generateSchemaDefinition(contentType),
-  }));
+  const componentsDefinitions = pipe(
+    values,
+    sortBy('uid'),
+    map((component) => ({
+      uid: component.uid,
+      definition: models.schema.generateSchemaDefinition(component),
+    }))
+  )(components);
+
+  options.logger.debug(`Found ${componentsDefinitions.length} components.`);
+
+  if (componentsDefinitions.length === 0) {
+    return { output: NO_COMPONENT_PLACEHOLDER_COMMENT, stats: {} };
+  }
 
   const formattedSchemasDefinitions = componentsDefinitions.reduce((acc, def) => {
     acc.push(
@@ -46,7 +62,7 @@ const generateComponentsDefinitions = async (options = {}) => {
     ...formattedSchemasDefinitions,
 
     // Global
-    generateSharedExtensionDefinition('Components', componentsDefinitions),
+    generateSharedExtensionDefinition('ComponentSchemas', componentsDefinitions),
   ];
 
   const output = emitDefinitions(allDefinitions);

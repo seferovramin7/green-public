@@ -1,9 +1,15 @@
 'use strict';
 
 const { factory } = require('typescript');
+const { values, pipe, map, sortBy } = require('lodash/fp');
 
 const { models } = require('../common');
 const { emitDefinitions, format, generateSharedExtensionDefinition } = require('../utils');
+
+const NO_CONTENT_TYPE_PLACEHOLDER_COMMENT = `/*
+ * The app doesn't have any content-types yet.
+ */
+`;
 
 /**
  * Generate type definitions for Strapi Content-Types
@@ -18,10 +24,20 @@ const generateContentTypesDefinitions = async (options = {}) => {
 
   const { contentTypes } = strapi;
 
-  const contentTypesDefinitions = Object.values(contentTypes).map((contentType) => ({
-    uid: contentType.uid,
-    definition: models.schema.generateSchemaDefinition(contentType),
-  }));
+  const contentTypesDefinitions = pipe(
+    values,
+    sortBy('uid'),
+    map((contentType) => ({
+      uid: contentType.uid,
+      definition: models.schema.generateSchemaDefinition(contentType),
+    }))
+  )(contentTypes);
+
+  options.logger.debug(`Found ${contentTypesDefinitions.length} content-types.`);
+
+  if (contentTypesDefinitions.length === 0) {
+    return { output: NO_CONTENT_TYPE_PLACEHOLDER_COMMENT, stats: {} };
+  }
 
   const formattedSchemasDefinitions = contentTypesDefinitions.reduce((acc, def) => {
     acc.push(
@@ -46,7 +62,7 @@ const generateContentTypesDefinitions = async (options = {}) => {
     ...formattedSchemasDefinitions,
 
     // Global
-    generateSharedExtensionDefinition('ContentTypes', contentTypesDefinitions),
+    generateSharedExtensionDefinition('ContentTypeSchemas', contentTypesDefinitions),
   ];
 
   const output = emitDefinitions(allDefinitions);

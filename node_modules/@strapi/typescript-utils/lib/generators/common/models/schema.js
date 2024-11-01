@@ -22,9 +22,11 @@ const { addImport } = require('../imports');
 const generateAttributePropertySignature = (schema) => {
   const { attributes } = schema;
 
-  const properties = Object.entries(attributes).map(([attributeName, attribute]) => {
-    return attributeToPropertySignature(schema, attributeName, attribute);
-  });
+  const properties = Object.entries(attributes)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([attributeName, attribute]) => {
+      return attributeToPropertySignature(schema, attributeName, attribute);
+    });
 
   return factory.createPropertySignature(
     undefined,
@@ -56,8 +58,8 @@ const generateSchemaDefinition = (schema) => {
   const interfaceName = getSchemaInterfaceName(uid);
   const parentType = getSchemaExtendsTypeName(schema);
 
-  // Make sure the Schema namespace is imported
-  addImport(NAMESPACES.schema);
+  // Make sure the Struct namespace is imported
+  addImport(NAMESPACES.Struct);
 
   // Properties whose values can be mapped to a literal type expression
   const literalPropertiesDefinitions = ['collectionName', 'info', 'options', 'pluginOptions']
