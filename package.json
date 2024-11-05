@@ -11,12 +11,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.9.5",
-    "react-redux": "8.0.5",
     "@strapi/cloud-cli": "^5.2.0",
     "@strapi/design-system": "^1.19.0",
     "@strapi/icons": "^1.19.0",
     "@strapi/plugin-documentation": "^5.2.0",
-    "@strapi/helper-plugin": "4.25.15",
     "@strapi/plugin-users-permissions": "5.2.0",
     "@strapi/provider-upload-cloudinary": "^5.2.0",
     "@strapi/sdk-plugin": "5.2.6",

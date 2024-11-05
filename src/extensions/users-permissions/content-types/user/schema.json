@@ -9,8 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -66,16 +65,28 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "customer_profile": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::customer-profile.customer-profile",
-      "mappedBy": "users_permissions_user"
+    "name": {
+      "type": "string"
     },
-    "userType": {
+    "surname": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "position": {
+      "type": "string"
+    },
+    "type": {
       "type": "enumeration",
-      "enum": ["Customer", "Company", "NGO"],
-      "default": "Customer"
+      "enum": [
+        "customer",
+        "ngo",
+        "company"
+      ]
     }
   }
 }

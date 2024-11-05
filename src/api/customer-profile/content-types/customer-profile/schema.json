@@ -26,12 +26,6 @@
     },
     "password": {
       "type": "password"
-    },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "customer_profile"
     }
   }
 }
