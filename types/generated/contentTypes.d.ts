@@ -566,6 +566,38 @@ export interface ApiCustomerProfileCustomerProfile
   };
 }
 
+export interface ApiDonationDonation extends Struct.CollectionTypeSchema {
+  collectionName: 'donations';
+  info: {
+    description: '';
+    displayName: 'donation';
+    pluralName: 'donations';
+    singularName: 'donation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    amount: Schema.Attribute.Decimal;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.Enumeration<['AZN', 'USD', 'EUR']>;
+    donor: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::donation.donation'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    recipient: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMmkPolygonMmkPolygon extends Struct.CollectionTypeSchema {
   collectionName: 'mmk_polygons';
   info: {
@@ -1469,6 +1501,7 @@ declare module '@strapi/strapi' {
       'api::characteristic-bundle.characteristic-bundle': ApiCharacteristicBundleCharacteristicBundle;
       'api::characteristic.characteristic': ApiCharacteristicCharacteristic;
       'api::customer-profile.customer-profile': ApiCustomerProfileCustomerProfile;
+      'api::donation.donation': ApiDonationDonation;
       'api::mmk-polygon.mmk-polygon': ApiMmkPolygonMmkPolygon;
       'api::placemar-detail.placemar-detail': ApiPlacemarDetailPlacemarDetail;
       'api::placemark.placemark': ApiPlacemarkPlacemark;
