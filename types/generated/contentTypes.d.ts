@@ -598,6 +598,43 @@ export interface ApiDonationDonation extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiGiftGift extends Struct.CollectionTypeSchema {
+  collectionName: 'gifts';
+  info: {
+    displayName: 'gift';
+    pluralName: 'gifts';
+    singularName: 'gift';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    donorName: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::gift.gift'> &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text;
+    numberOfTrees: Schema.Attribute.Integer;
+    placemark: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::placemark.placemark'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    reason: Schema.Attribute.Text;
+    recipientEmail: Schema.Attribute.Text;
+    recipientName: Schema.Attribute.String;
+    recipientSurname: Schema.Attribute.String;
+    specialMessage: Schema.Attribute.Boolean;
+    tree: Schema.Attribute.Relation<'oneToOne', 'api::tree.tree'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMmkPolygonMmkPolygon extends Struct.CollectionTypeSchema {
   collectionName: 'mmk_polygons';
   info: {
@@ -1502,6 +1539,7 @@ declare module '@strapi/strapi' {
       'api::characteristic.characteristic': ApiCharacteristicCharacteristic;
       'api::customer-profile.customer-profile': ApiCustomerProfileCustomerProfile;
       'api::donation.donation': ApiDonationDonation;
+      'api::gift.gift': ApiGiftGift;
       'api::mmk-polygon.mmk-polygon': ApiMmkPolygonMmkPolygon;
       'api::placemar-detail.placemar-detail': ApiPlacemarDetailPlacemarDetail;
       'api::placemark.placemark': ApiPlacemarkPlacemark;

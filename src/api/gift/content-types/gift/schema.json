@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gifts",
+  "info": {
+    "singularName": "gift",
+    "pluralName": "gifts",
+    "displayName": "gift"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tree": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tree.tree"
+    },
+    "numberOfTrees": {
+      "type": "integer"
+    },
+    "placemark": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::placemark.placemark"
+    },
+    "recipientName": {
+      "type": "string"
+    },
+    "recipientSurname": {
+      "type": "string"
+    },
+    "recipientEmail": {
+      "type": "text"
+    },
+    "donorName": {
+      "type": "text"
+    },
+    "reason": {
+      "type": "text"
+    },
+    "message": {
+      "type": "text"
+    },
+    "specialMessage": {
+      "type": "boolean"
+    }
+  }
+}
