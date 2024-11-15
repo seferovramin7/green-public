@@ -598,41 +598,6 @@ export interface ApiDonationDonation extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiEventEvent extends Struct.CollectionTypeSchema {
-  collectionName: 'events';
-  info: {
-    displayName: 'event';
-    pluralName: 'events';
-    singularName: 'event';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    dateTime: Schema.Attribute.DateTime;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
-      Schema.Attribute.Private;
-    location: Schema.Attribute.Relation<'oneToOne', 'api::placemark.placemark'>;
-    name: Schema.Attribute.Text;
-    numberOfParticipants: Schema.Attribute.Integer;
-    numberOfTrees: Schema.Attribute.Integer;
-    organizedByGreenpublic: Schema.Attribute.Boolean;
-    organizer: Schema.Attribute.Relation<
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    tree: Schema.Attribute.Relation<'oneToOne', 'api::tree.tree'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiGiftGift extends Struct.CollectionTypeSchema {
   collectionName: 'gifts';
   info: {
@@ -1574,7 +1539,6 @@ declare module '@strapi/strapi' {
       'api::characteristic.characteristic': ApiCharacteristicCharacteristic;
       'api::customer-profile.customer-profile': ApiCustomerProfileCustomerProfile;
       'api::donation.donation': ApiDonationDonation;
-      'api::event.event': ApiEventEvent;
       'api::gift.gift': ApiGiftGift;
       'api::mmk-polygon.mmk-polygon': ApiMmkPolygonMmkPolygon;
       'api::placemar-detail.placemar-detail': ApiPlacemarDetailPlacemarDetail;
