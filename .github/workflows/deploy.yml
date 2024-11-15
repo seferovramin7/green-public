@@ -25,25 +25,26 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'  # Specify Node.js 18 for compatibility
+          node-version: '18'  # Ensure Node.js 18 is used for compatibility
 
-      # Clean npm cache before installing
-      - name: Clean npm cache
-        run: npm cache clean --force
-
-      # Remove node_modules and package-lock.json to ensure a clean install
-      - name: Clean npm modules
+      # Clean npm cache and reinstall dependencies
+      - name: Clean environment
         run: |
+          npm cache clean --force
           rm -rf node_modules
           rm -f package-lock.json
 
-      # Install dependencies with legacy peer deps
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build Strapi project
-        run: npm run build
+      # Verify dependency tree to check for conflicts
+      - name: Check dependency tree
+        run: npm ls || true
 
+      - name: Build Strapi project
+        run: npm run build --debug
+
+      # Deploy the build to the Contabo server
       - name: Deploy to server
         run: |
           ssh root@37.60.230.124 "
