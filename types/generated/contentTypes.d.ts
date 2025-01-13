@@ -532,6 +532,43 @@ export interface ApiCharacteristicCharacteristic
   };
 }
 
+export interface ApiCompanyTreeCompanyTree extends Struct.CollectionTypeSchema {
+  collectionName: 'company_trees';
+  info: {
+    description: '';
+    displayName: 'CompanyTree';
+    pluralName: 'company-trees';
+    singularName: 'company-tree';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::company-tree.company-tree'
+    > &
+      Schema.Attribute.Private;
+    numberOfTrees: Schema.Attribute.Integer;
+    placemark: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::placemark.placemark'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiCustomerProfileCustomerProfile
   extends Struct.CollectionTypeSchema {
   collectionName: 'customer_profiles';
@@ -1235,6 +1272,10 @@ export interface PluginReviewWorkflowsWorkflow
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
+    stageRequiredToPublish: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::review-workflows.workflow-stage'
+    >;
     stages: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::review-workflows.workflow-stage'
@@ -1572,6 +1613,7 @@ declare module '@strapi/strapi' {
       'api::care-product.care-product': ApiCareProductCareProduct;
       'api::characteristic-bundle.characteristic-bundle': ApiCharacteristicBundleCharacteristicBundle;
       'api::characteristic.characteristic': ApiCharacteristicCharacteristic;
+      'api::company-tree.company-tree': ApiCompanyTreeCompanyTree;
       'api::customer-profile.customer-profile': ApiCustomerProfileCustomerProfile;
       'api::donation.donation': ApiDonationDonation;
       'api::event.event': ApiEventEvent;
