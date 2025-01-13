@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_trees",
+  "info": {
+    "singularName": "company-tree",
+    "pluralName": "company-trees",
+    "displayName": "CompanyTree",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "placemark": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::placemark.placemark"
+    },
+    "numberOfTrees": {
+      "type": "integer"
+    }
+  }
+}
