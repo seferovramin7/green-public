@@ -20,7 +20,7 @@ jobs:
 
       - name: Add Contabo server to known_hosts
         run: |
-          ssh-keyscan 37.60.230.124 >> ~/.ssh/known_hosts
+          ssh-keyscan 89.250.64.225 >> ~/.ssh/known_hosts
 
       - name: Install Node.js
         uses: actions/setup-node@v2
