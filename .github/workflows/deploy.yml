@@ -52,3 +52,4 @@ jobs:
           npm install --legacy-peer-deps &&
           npm run build &&
           pm2 restart strapi"
+          - name: Deploy to server
