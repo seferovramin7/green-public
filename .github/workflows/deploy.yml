@@ -46,7 +46,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh root@37.60.230.124 "
+          ssh root@89.250.64.225 "
           cd /var/www/green-public &&
           git pull origin main &&
           npm install --legacy-peer-deps &&
